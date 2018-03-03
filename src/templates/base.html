@@ -3,28 +3,19 @@
 <html lang=en>
 
 <head>
+    <title>{% block head_title %}Deep.com{% endblock head_title %}</title>
 </head>
 
 <body>
-<h1>Hello World!</h1>
-<p>This is <code>{% verbatim %}{{ html_var }}{% endverbatim %}</code> coming through</p>
-<p>
-    {% if num is not None %}
-        Random number is {{ num }}
-    {% endif %}
-</p>
-<p>
-    {% for some_item in some_list %}
-        {% if some_item|divisibleby:"2" %}
-            Even Number
-        {% else %}
-            Odd Number
-        {% endif %}
-        {{ some_item }}<br/>
-    {% endfor %}
-</p>
-<p>
-    Some item is {{ some_item }}
-</p>
+<h1>Deep.com</h1>
+<a href="/">Home</a>
+<a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+<div class="container">
+    {% block content %}
+        Hello There!
+    {% endblock content %}
+</div>
 </body>
 </html>
