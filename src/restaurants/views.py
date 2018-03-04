@@ -2,9 +2,9 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
+from django.views.generic.list import ListView
 
 from .models import RestaurantLocation
-from django.views.generic.list import ListView
 
 
 def restaurant_listview(request):

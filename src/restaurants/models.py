@@ -1,6 +1,8 @@
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save
+
 from .utils import unique_slug_generator
+
 
 # Create your models here.
 class RestaurantLocation(models.Model):
@@ -30,12 +32,12 @@ def rl_pre_save_receiver(sender, instance, *args, **kwargs):
 #     print('saved...')
 #     print(instance.timestamp)
 #     print(instance.updated)
-    # Never call .save() in post_save signal receiver method as it will be an infinite loop.
-    # Evertime .save() is called, post_save signal will be called.
-    # You can do this though if you aren't setting instance slug in pre_save:
-    # if not instance.slug:
-    #     instance.slug = unique_slug_generator(instance)
-    #     instance.save()
+# Never call .save() in post_save signal receiver method as it will be an infinite loop.
+# Evertime .save() is called, post_save signal will be called.
+# You can do this though if you aren't setting instance slug in pre_save:
+# if not instance.slug:
+#     instance.slug = unique_slug_generator(instance)
+#     instance.save()
 
 
 pre_save.connect(rl_pre_save_receiver, sender=RestaurantLocation)
