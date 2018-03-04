@@ -1,6 +1,8 @@
 # Create your views here.
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import DetailView
+
 from .models import RestaurantLocation
 from django.views.generic.list import ListView
 
@@ -26,3 +28,12 @@ class RestaurantListView(ListView):
                 Q(category__icontains=slug)
             )
         return queryset
+
+
+class RestaurantDetailView(DetailView):
+    queryset = RestaurantLocation.objects.all()
+
+    def get_object(self, queryset=queryset):
+        rest_id = self.kwargs.get('rest_id')
+        obj = get_object_or_404(RestaurantLocation, id=rest_id)
+        return obj
