@@ -5,10 +5,15 @@
 {% block content %}
     <h1>Add Restaurant</h1>
 
+    {% if errors %}
+        {{ errors }}
+    {% endif %}
     <form method="post"> {% csrf_token %}
-        <input type="text" name="title" placeholder="Your Title"><br/>
-        <input type="text" name="location" placeholder="Location"><br/>
-        <input type="text" name="category" placeholder="Category"><br/>
+        {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
 {% endblock content %}
+
+{#        <input type="text" name="name" placeholder="Your Title"><br/>#}
+{#        <input type="text" name="location" placeholder="Location"><br/>#}
+{#        <input type="text" name="category" placeholder="Category"><br/>#}

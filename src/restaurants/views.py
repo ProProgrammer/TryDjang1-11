@@ -1,30 +1,29 @@
 # Create your views here.
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
+
 from .forms import RestaurantCreateForm
 from .models import RestaurantLocation
-from django.http import HttpResponseRedirect
 
 
 def restaurant_createview(request):
-    # if request.method == "GET":
-    #     print("GET Data")
-    if request.method == "POST":  # PUT
-        print("POST Data")
-        print(request.POST)
-        title = request.POST.get("title")
-        location = request.POST.get('location')
-        category = request.POST.get('category')
+    form = RestaurantCreateForm(request.POST or None)
+    errors = None
+    if form.is_valid():
         obj = RestaurantLocation.objects.create(
-            name=title,
-            location=location,
-            category=category
+            name=form.cleaned_data.get("name"),
+            location=form.cleaned_data.get("location"),
+            category=form.cleaned_data.get("category")
         )
         return HttpResponseRedirect("/restaurants")
+    if form.errors:
+        errors = form.errors
+
     template_name = 'restaurants/form.html'
-    context = {}
+    context = {'form': form, 'errors': errors}
     return render(request, template_name, context)
 
 
