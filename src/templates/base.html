@@ -4,18 +4,16 @@
 
 <head>
     <title>{% block head_title %}Deep.com{% endblock head_title %}</title>
+    {% include "snippets/css.html" %}
 </head>
 
 <body>
-<h1>Deep.com</h1>
-<a href="/">Home</a>
-<a href="/about/">About</a>
-<a href="/contact/">Contact</a>
+{% include "snippets/nav.html" %}
 
 <div class="container">
     {% block content %}
-        Hello There!
     {% endblock content %}
 </div>
+{% include "snippets/js.html" %}
 </body>
 </html>
