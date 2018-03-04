@@ -1,6 +1,7 @@
 import random
 
 from django.shortcuts import render
+from django.views import View
 
 
 # Create your views here.
@@ -33,3 +34,23 @@ def contact(request):
     context = {
     }
     return render(request, "contact.html", context)
+
+
+class ContactView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, "contact.html", context)
+
+    # def post(self, request, *args, **kwargs):
+    #     context = {}
+    #     return render(request, "contact.html", context)
+    #
+    # def put(self, request, *args, **kwargs):
+    #     context = {}
+    #     return render(request, "contact.html", context)
+
+
+class AboutView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, "about.html", context)
