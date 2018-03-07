@@ -13,16 +13,31 @@ def restaurant_createview(request):
     form = RestaurantLocationCreateForm(request.POST or None)
     errors = None
     if form.is_valid():
-        # customize
-        # pre_save signals
-        form.save()
-        # post_save signals
-        # obj = RestaurantLocation.objects.create(
-        #     name=form.cleaned_data.get("name"),
-        #     location=form.cleaned_data.get("location"),
-        #     category=form.cleaned_data.get("category")
-        # )
-        return HttpResponseRedirect("/restaurants")
+        if request.user.is_authenticated():
+            # Turn this form into potential instance, or instance that's going to happen and just hasn't saved yet.
+            instance = form.save(commit=False) # So we have an instance but we're not quite saving it yet(commit=False)
+
+            # customize
+            # pre_save signals
+            # form.save()
+
+            # So now that I have an instance, I could say:
+            instance.owner = request.user
+            instance.save()
+
+            # post_save signals
+            # obj = RestaurantLocation.objects.create(
+            #     name=form.cleaned_data.get("name"),
+            #     location=form.cleaned_data.get("location"),
+            #     category=form.cleaned_data.get("category")
+            # )
+
+            return HttpResponseRedirect("/restaurants")
+        else:
+            return HttpResponseRedirect('/login/')
+            # Redirect to login in case user is not authenticated.
+            # This is not the best practice, but just an example of how it can be done
+        
     if form.errors:
         errors = form.errors
 
