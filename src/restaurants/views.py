@@ -37,7 +37,7 @@ def restaurant_createview(request):
             return HttpResponseRedirect('/login/')
             # Redirect to login in case user is not authenticated.
             # This is not the best practice, but just an example of how it can be done
-        
+
     if form.errors:
         errors = form.errors
 
@@ -77,3 +77,11 @@ class RestaurantCreateView(CreateView):
     form_class = RestaurantLocationCreateForm
     template_name = 'restaurants/form.html'
     success_url = '/restaurants'
+
+    # Overriding form_valid method while implementing class based authentication
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.owner = self.request.user
+        # instance.save()
+
+        return super(RestaurantCreateView, self).form_valid(form)
