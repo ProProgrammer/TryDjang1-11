@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -9,6 +10,7 @@ from .forms import RestaurantLocationCreateForm
 from .models import RestaurantLocation
 
 
+@login_required(login_url='/login/')
 def restaurant_createview(request):
     form = RestaurantLocationCreateForm(request.POST or None)
     errors = None
