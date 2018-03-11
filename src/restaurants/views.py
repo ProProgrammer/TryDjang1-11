@@ -1,5 +1,6 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -10,7 +11,7 @@ from .forms import RestaurantLocationCreateForm
 from .models import RestaurantLocation
 
 
-@login_required(login_url='/login/')
+@login_required()
 def restaurant_createview(request):
     form = RestaurantLocationCreateForm(request.POST or None)
     errors = None
@@ -75,8 +76,11 @@ class RestaurantDetailView(DetailView):
     queryset = RestaurantLocation.objects.all()
 
 
-class RestaurantCreateView(CreateView):
+class RestaurantCreateView(LoginRequiredMixin, CreateView):
     form_class = RestaurantLocationCreateForm
+    # The login_url variable here will override the one that we have set in default settings (base.py)
+    login_url = '/login/'   # We are keeping it same for now. But in case someone changes there, it will remain Login
+    #  for this view always until we change it here too or remove this variable altogether.
     template_name = 'restaurants/form.html'
     success_url = '/restaurants'
 
