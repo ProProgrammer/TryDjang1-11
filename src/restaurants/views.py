@@ -81,7 +81,7 @@ class RestaurantCreateView(LoginRequiredMixin, CreateView):
     # The login_url variable here will override the one that we have set in default settings (base.py)
     login_url = '/login/'   # We are keeping it same for now. But in case someone changes there, it will remain Login
     #  for this view always until we change it here too or remove this variable altogether.
-    template_name = 'restaurants/form.html'
+    template_name = 'form.html'
     # success_url = '/restaurants'
 
     # Overriding form_valid method while implementing class based authentication
@@ -91,3 +91,8 @@ class RestaurantCreateView(LoginRequiredMixin, CreateView):
         # instance.save()
 
         return super(RestaurantCreateView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(RestaurantCreateView, self).get_context_data(**kwargs)
+        context['title'] = 'Add Restaurant'
+        return context
