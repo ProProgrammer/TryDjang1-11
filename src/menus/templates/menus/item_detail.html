@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block head_title %}Item Detail || {{ block.super }} {% endblock head_title %}
+
+{% block content %}
+    <h1>{{ object.name }}
+        <small>{{ object.restaurant }}</small>
+    </h1>
+    <p><strong>Contents:</strong> {{ object.contents }}</p>
+    <p><strong>Excludes:</strong> {{ object.excludes }}</p>
+    <p><strong>Added:</strong> {{ object.timestamp }}, Last Updated: {{ object.updated|timesince }} ago</p>
+{% endblock content %}
