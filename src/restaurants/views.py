@@ -17,7 +17,7 @@ def restaurant_createview(request):
     if form.is_valid():
         if request.user.is_authenticated():
             # Turn this form into potential instance, or instance that's going to happen and just hasn't saved yet.
-            instance = form.save(commit=False) # So we have an instance but we're not quite saving it yet(commit=False)
+            instance = form.save(commit=False)  # So we have an instance but we're not quite saving it yet(commit=False)
 
             # customize
             # pre_save signals
