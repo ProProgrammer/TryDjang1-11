@@ -82,7 +82,7 @@ class RestaurantCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'   # We are keeping it same for now. But in case someone changes there, it will remain Login
     #  for this view always until we change it here too or remove this variable altogether.
     template_name = 'restaurants/form.html'
-    success_url = '/restaurants'
+    # success_url = '/restaurants'
 
     # Overriding form_valid method while implementing class based authentication
     def form_valid(self, form):
