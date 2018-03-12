@@ -33,6 +33,7 @@ class ItemCreateView(LoginRequiredMixin, CreateView):
     def get_form_kwargs(self):
         kwargs = super(ItemCreateView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
+        # kwargs['instance'] = Item.objects.filter(user=self.request.user).first()
         return kwargs
 
     def get_queryset(self):
@@ -55,3 +56,9 @@ class ItemUpdateView(LoginRequiredMixin, UpdateView):
         context = super(ItemUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Update Item'
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super(ItemUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        # kwargs['instance'] = Item.objects.filter(user=self.request.user).first()
+        return kwargs
